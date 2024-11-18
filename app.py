@@ -152,6 +152,28 @@ def handle_1m_loader():
     process.stdout.close()
     process.wait()
 
+@socketio.on("kill_node_playbook")
+def handle_kill_node():
+    playbook_cmd = ["ansible-playbook", f"{playbook_path}/kill_node.yml"]
+    process = subprocess.Popen(playbook_cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, cwd=playbook_path)
+
+    for line in process.stdout:
+        socketio.emit("playbook_output", {"output": line})
+        socketio.sleep(0)
+
+    process.wait()
+
+@socketio.on("restart_node_playbook")
+def handle_restart_node():
+    playbook_cmd = ["ansible-playbook", f"{playbook_path}/restart_node.yml"]
+    process = subprocess.Popen(playbook_cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, cwd=playbook_path)
+
+    for line in process.stdout:
+        socketio.emit("playbook_output", {"output": line})
+        socketio.sleep(0)
+
+    process.wait()
+
 def parse_ansible_inventory(inventory_file):
     config = configparser.ConfigParser(allow_no_value=True)
     config.optionxform = str  # Preserve case sensitivity
@@ -250,4 +272,3 @@ if __name__ == "__main__":
 
     #socketio.run(app, host='0.0.0.0', debug=True)
     socketio.run(app, host='0.0.0.0', allow_unsafe_werkzeug=True)
-

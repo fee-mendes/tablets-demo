@@ -1,0 +1,9 @@
+---
+- name: Start Scylla Server Service
+  hosts: 172.31.0.102
+  become: yes  # Run with sudo privileges
+  tasks:
+    - name: Start the scylla-server.service
+      ansible.builtin.systemd:
+        name: scylla-server.service
+        state: started

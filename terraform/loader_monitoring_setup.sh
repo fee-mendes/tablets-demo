@@ -75,7 +75,7 @@ EOF
 
 # App stuff
 cd /app
-git clone https://github.com/fee-mendes/tablets-demo.git
+git clone https://github.com/ruthea/tablets-demo.git
 cd /app/tablets-demo
 
 # Configure Ansible inventory

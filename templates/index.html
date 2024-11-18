@@ -130,6 +130,12 @@
 	document.getElementById("batchLoadBtn").addEventListener("click", function() {
 	  socket.emit("batch_loader");
         });
+	document.getElementById("killNodeBtn").addEventListener("click", function() {
+	  socket.emit("kill_node_playbook");
+        });
+	document.getElementById("restartNodeBtn").addEventListener("click", function() {
+	  socket.emit("restart_node_playbook");
+        });
 
         socket.on("playbook_output", function(data) {
           var outputElem = document.getElementById("output");
@@ -208,6 +214,8 @@
         <button id="scaleBtn">Scale Out</button>
 	<button id="downScaleBtn">Scale In</button>
 	<button id="batchLoadBtn">Batch Workload</button>
+        <button id="killNodeBtn">Kill Node</button>
+        <button id="restartNodeBtn">Restart Node</button>
       </div>
       <p>Playbook Output:</p>
       <pre id="output"></pre>
